@@ -11,7 +11,7 @@ import Receipt from '../receipt/receipt';
 
 export default function RecitExtractor(){
 
-    const [auth] = useContext(AuthContext);
+    const {auth} = useContext(AuthContext);
 
     const [message, setMessage] = useState([]);
     const [isFetching, setFetching] = useState([false]);
