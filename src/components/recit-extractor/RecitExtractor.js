@@ -5,7 +5,6 @@ import { Button } from '@mui/material';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../../context/AuthProvider';
-import ReadQrMobile from '../qr-mobile-scanner';
 import ReadQr from '../qr-scanner';
 import Receipt from '../receipt/receipt';
 
@@ -76,9 +75,6 @@ export default function RecitExtractor(){
         <div style={{width:'100%',height:'100%'}}>
             {
                 isFetching !== true ? <ReadQr sendQrData={getData}/> : ''
-            }
-            {
-                isFetching !== true ? <ReadQrMobile sendQrData={getData}/> : ''
             }
             {
                 isFetching === true ? 
