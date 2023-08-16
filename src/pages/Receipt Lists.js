@@ -33,7 +33,6 @@ export default function ReceiptsList() {
   const url = `${liveUrl}/receipts/totalpurchases/${userId}`;
   const allReceiptsUrl = `${liveUrl}/receipts/${userId}`
 
-
   useEffect(() => {
     console.log(auth);
     // Define the function to fetch data

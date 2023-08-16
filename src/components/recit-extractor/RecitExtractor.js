@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-const-assign */
 /* eslint-disable no-var */
@@ -5,16 +6,41 @@ import { Button } from '@mui/material';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../../context/AuthProvider';
+import ReadQrMobile from '../qr-mobile-scanner';
 import ReadQr from '../qr-scanner';
 import Receipt from '../receipt/receipt';
+import ReadQrMobileFullscreen from '../qr-mobile-scanner-fullscreen';
 
 
 export default function RecitExtractor(){
 
     const {auth} = useContext(AuthContext);
+    
+    function detectMob() {
+        const toMatch = [
+            /Android/i,
+            /webOS/i,
+            /iPhone/i,
+            /iPad/i,
+            /iPod/i,
+            /BlackBerry/i,
+            /Windows Phone/i
+        ];
+        
+        return toMatch.some((toMatchItem) => {
+            return navigator.userAgent.match(toMatchItem);
+        });
+    }
+    
+    const[mobile,setMobile] = useState([false]);
 
     const [message, setMessage] = useState([]);
     const [isFetching, setFetching] = useState([false]);
+
+    useEffect(()=>{
+        console.log(detectMob());
+        setMobile(detectMob());
+    },[]);
 
     const SaveButton = {
         width:'48%', 
@@ -72,19 +98,22 @@ export default function RecitExtractor(){
     }
 
     return (
-        <div style={{width:'100%',height:'100%'}}>
+        <div style={{width:'100%',height:'100%', display:'flex', alignItems:'center',justifyContent:'center'}}>
             {
-                isFetching !== true ? <ReadQr sendQrData={getData}/> : ''
+                isFetching !== true && !mobile? <ReadQr sendQrData={getData}/> : ''
+            }
+            {
+                isFetching !== true && mobile? <ReadQrMobileFullscreen sendQrData={getData}/> : ''
             }
             {
                 isFetching === true ? 
-                <>
+                <div>
                     <Receipt amo={message}/>
                     <div style={{margin: 'auto', marginTop: '10px', width:'397px', display: 'flex', justifyContent: 'space-between'}}>
                         <button style={SaveButton} onClick={() => saveReceipt(message)}>SAVE</button>
                         <button style={CancelButton} onClick={ ()=>setFetching(false)}>CANCEL</button>
                     </div>
-                </> : ''
+                </div> : ''
             }
         </div>
     )
