@@ -10,7 +10,7 @@ import useResponsive from '../hooks/useResponsive';
 import Logo from '../components/logo';
 import Iconify from '../components/iconify';
 // sections
-import { LoginForm } from '../sections/auth/login';
+import RegisterForm from '../sections/auth/login/RegisterForm';
 
 // ----------------------------------------------------------------------
 
@@ -46,15 +46,11 @@ export default function LoginPage() {
   const mdUp = useResponsive('up', 'md');
 
   const navigate = useNavigate();
-  
-  const handleClick = () =>{
-    navigate('/register', { replace: true });
-  }
 
   return (
     <>
       <Helmet>
-        <title> Login | Minimal UI </title>
+        <title> Register | Minimal UI </title>
       </Helmet>
 
       <StyledRoot>
@@ -69,7 +65,7 @@ export default function LoginPage() {
         {mdUp && (
           <StyledSection>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
+              Hi, Let' s get started
             </Typography>
             <img src="/assets/illustrations/illustration_login.png" alt="login" />
           </StyledSection>
@@ -78,13 +74,13 @@ export default function LoginPage() {
         <Container maxWidth="sm">
           <StyledContent>
             <Typography variant="h4" gutterBottom>
-              Sign in to Minimal
+              Register a new account
             </Typography>
 
-            <Typography variant="body2" sx={{ mb: 5 }}>
+            {/* <Typography variant="body2" sx={{ mb: 5 }}>
               Don’t have an account? {''}
               <Link variant="subtitle2" onClick={handleClick}>Get started</Link>
-            </Typography>
+            </Typography> */}
 
             {/* <Stack direction="row" spacing={2}>
               <Button fullWidth size="large" color="inherit" variant="outlined">
@@ -106,7 +102,7 @@ export default function LoginPage() {
               </Typography>
             </Divider> */}
 
-            <LoginForm />
+            <RegisterForm />
           </StyledContent>
         </Container>
       </StyledRoot>

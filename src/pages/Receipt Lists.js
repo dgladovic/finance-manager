@@ -20,8 +20,7 @@ const SORT_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-const liveUrl = 'https://racunscraper.onrender.com';
-
+const liveUrl = process.env.REACT_APP_BACKEND_URL;
 
 export default function ReceiptsList() {
 
@@ -33,7 +32,6 @@ export default function ReceiptsList() {
   const userId = auth.id;
   const url = `${liveUrl}/receipts/totalpurchases/${userId}`;
   const allReceiptsUrl = `${liveUrl}/receipts/${userId}`
-
 
   useEffect(() => {
     console.log(auth);
