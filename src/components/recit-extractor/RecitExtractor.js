@@ -6,10 +6,9 @@ import { Button } from '@mui/material';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../../context/AuthProvider';
-import ReadQrMobile from '../qr-mobile-scanner';
-import ReadQr from '../qr-scanner';
+import ReadQrDesktop from '../qr-scanner';
 import Receipt from '../receipt/receipt';
-import ReadQrMobileFullscreen from '../qr-mobile-scanner-fullscreen';
+import ReadQrMobile from '../qr-mobile-scanner-fullscreen';
 
 
 export default function RecitExtractor(){
@@ -38,7 +37,6 @@ export default function RecitExtractor(){
     const [isFetching, setFetching] = useState([false]);
 
     useEffect(()=>{
-        console.log(detectMob());
         setMobile(detectMob());
     },[]);
 
@@ -66,20 +64,14 @@ export default function RecitExtractor(){
 
     const liveUrl = process.env.REACT_APP_BACKEND_URL;
 
-    const urlbase = `${liveUrl}/scan/=?`;
+    const parseUrl = `${liveUrl}/scan/=?`;
 
     const userId = auth.id;
 
-    // const arrayDisplay = [];
-
-    const getData = (message) => {
-        axios.get(urlbase + message).then(
+    const getReceiptData = (message) => {
+        axios.get(parseUrl + message).then(
             (e)=>{
-                console.log(e.data);
-                console.log(urlbase + message,'poziv');
-                // e.data.items.forEach(e => {
-                //     arrayDisplay.push(e);
-                // });
+                console.log(parseUrl + message,'Parsed receipt successfully!');
                 setMessage(e);
                 setFetching(true);
             }
@@ -100,18 +92,18 @@ export default function RecitExtractor(){
     return (
         <div style={{width:'100%',height:'100%', display:'flex', alignItems:'center',justifyContent:'center'}}>
             {
-                isFetching !== true && !mobile? <ReadQr sendQrData={getData}/> : ''
+                isFetching !== true && !mobile? <ReadQrDesktop sendQrData={getReceiptData}/> : ''
             }
             {
-                isFetching !== true && mobile? <ReadQrMobileFullscreen sendQrData={getData}/> : ''
+                isFetching !== true && mobile? <ReadQrMobile sendQrData={getReceiptData}/> : ''
             }
             {
                 isFetching === true ? 
                 <div>
                     <Receipt amo={message.data}/>
                     <div style={{margin: 'auto', marginTop: '10px', width:'397px', display: 'flex', justifyContent: 'space-between'}}>
-                        <button style={SaveButton} onClick={() => saveReceipt(message)}>SAVE</button>
-                        <button style={CancelButton} onClick={ ()=>setFetching(false)}>CANCEL</button>
+                        <button style={SaveButton} type='button' onClick={() => saveReceipt(message)}>SAVE</button>
+                        <button style={CancelButton} type='button'onClick={()=> setFetching(false)}>CANCEL</button>
                     </div>
                 </div> : ''
             }
