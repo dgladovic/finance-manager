@@ -51,6 +51,13 @@ export default function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(user,pwd,firstName,lastName,dateOfBirth);
+    if(dateOfBirth === ''){
+      const formDate = new Date();
+      const day = formDate.getDate();
+      const month = formDate.getMonth() + 1;
+      const year = formDate.getFullYear();
+      setDate(`${year}-${month}-${day}`);
+    }
     try{
       const response = await axios.post(registerUrl, {
         email: user, 
@@ -139,7 +146,12 @@ export default function RegisterForm() {
           }}
         />
 
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" form="myForm">
+        Register
+      </LoadingButton>
+
       </Stack>
+
       </form>
 
       {/* <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
@@ -149,9 +161,7 @@ export default function RegisterForm() {
         </Link>
       </Stack> */}
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" form="myForm">
-        Register
-      </LoadingButton>
+
     </>
   );
 }
