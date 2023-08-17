@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+import AuthContext from '../../../context/AuthProvider';
 // mock
 import account from '../../../_mock/account';
 // hooks
@@ -37,7 +38,15 @@ Nav.propTypes = {
 export default function Nav({ openNav, onCloseNav }) {
   const { pathname } = useLocation();
 
+  const {auth} = useContext(AuthContext);
+
   const isDesktop = useResponsive('up', 'lg');
+
+  const navigate = useNavigate();
+
+  const handleClick = () =>{
+    navigate('/login', { replace: true });
+  }
 
   useEffect(() => {
     if (openNav) {
@@ -54,7 +63,7 @@ export default function Nav({ openNav, onCloseNav }) {
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Logo />
+        {/* <Logo /> */}
       </Box>
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
@@ -64,12 +73,12 @@ export default function Nav({ openNav, onCloseNav }) {
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+                {/* {auth.user.split('@')[0]} */}
               </Typography>
 
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
-              </Typography>
+              {/* <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                {auth.user}
+              </Typography> */}
             </Box>
           </StyledAccount>
         </Link>
@@ -81,24 +90,24 @@ export default function Nav({ openNav, onCloseNav }) {
 
       <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
         <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-          <Box
+          {/* <Box
             component="img"
             src="/assets/illustrations/illustration_avatar.png"
             sx={{ width: 100, position: 'absolute', top: -50 }}
-          />
+          /> */}
 
           <Box sx={{ textAlign: 'center' }}>
-            <Typography gutterBottom variant="h6">
+            {/* <Typography gutterBottom variant="h6">
               Get more?
-            </Typography>
+            </Typography> */}
 
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              From only $69
+              {/* From only $69 */}
             </Typography>
           </Box>
 
-          <Button href="https://material-ui.com/store/items/minimal-dashboard/" target="_blank" variant="contained">
-            Upgrade to Pro
+          <Button onClick={handleClick} target="_blank" variant="contained">
+            Logout
           </Button>
         </Stack>
       </Box>

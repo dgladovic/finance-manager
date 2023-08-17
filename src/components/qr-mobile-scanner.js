@@ -5,12 +5,9 @@ import { useState, useRef, useEffect } from 'react';
 import QrScanner from 'qr-scanner';
 import { Dialog, DialogContent } from '@mui/material'
 
-const ReadQrMobile = ({sendQrData}) => {
+const ReadQrCamera = ({sendQrData}) => {
 
     const videoRef = useRef();
-
-    const [result, setResult] = useState('');
-
     const [data, setData] = useState(null);
 
     useEffect(()=>{
@@ -30,7 +27,7 @@ const ReadQrMobile = ({sendQrData}) => {
 
     return (
         <div style={{ margin: "auto"}}>
-            <div style={{ width: '400px', height: '400px', overflow: 'hidden' }}>
+            <div style={{ width: '100%', height: '400px', overflow: 'hidden' }}>
                 <video id="video" ref={videoRef} playsInline style={{ width: '100%', height: '100%', objectFit: 'cover'}} />
             </div>
         </div>
@@ -38,4 +35,4 @@ const ReadQrMobile = ({sendQrData}) => {
     );
 };
 
-export default ReadQrMobile;
+export default ReadQrCamera;
