@@ -91,7 +91,7 @@ export default function ReceiptsList() {
       <List style={{ display: 'flex', flexDirection: 'row', overflowX: 'auto', alignItems:'flex-start'}}>
         { receiptsList.map( (e,i)  => (
         <ListItem>
-        <Receipt amo={e} key={i}/>
+          <Receipt amo={e} key={i}/>
         </ListItem>
         ))
         }
