@@ -73,7 +73,7 @@ export default function Nav({ openNav, onCloseNav }) {
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {auth.user.split('@')[0]}
+                {/* {auth.user.split('@')[0]} */}
               </Typography>
 
               {/* <Typography variant="body2" sx={{ color: 'text.secondary' }}>
