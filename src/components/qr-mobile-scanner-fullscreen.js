@@ -4,9 +4,9 @@
 import { useState, useRef, useEffect } from 'react';
 import QrScanner from 'qr-scanner';
 import { Dialog, DialogContent } from '@mui/material'
-import ReadQrMobile from './qr-mobile-scanner';
+import ReadQrCamera from './qr-mobile-scanner';
 
-const ReadQrMobileFullscreen = ({sendQrData}) => {
+const ReadQrMobile = ({sendQrData}) => {
 
     const [open, setOpen] = useState(false);
 
@@ -26,7 +26,7 @@ const ReadQrMobileFullscreen = ({sendQrData}) => {
     return (
         <div style={{ margin: "auto"}}>
             <Dialog open={open} onClose={handleClose}>
-                <ReadQrMobile sendQrData={sendQrDataNew}/>
+                <ReadQrCamera sendQrData={sendQrDataNew}/>
             </Dialog>
             <button type="button"
                 style={{ margin: 'auto', display: 'block', backgroundColor: 'rgb(0,140,120)', color: 'white', border: 'solid rgb(0,175,120) 5px', borderRadius: '50%', width: '150px', height: '150px' }}
@@ -38,4 +38,4 @@ const ReadQrMobileFullscreen = ({sendQrData}) => {
     );
 };
 
-export default ReadQrMobileFullscreen;
+export default ReadQrMobile;

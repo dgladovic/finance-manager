@@ -3,7 +3,7 @@
 import {useState, useRef} from 'react';
 import QrScanner from 'qr-scanner';
 
-const ReadQr = ({sendQrData}) =>{
+const ReadQrDesktop = ({sendQrData}) =>{
     
     const [file,setFile] = useState(null);
     const [data,setData] = useState(null);
@@ -45,4 +45,4 @@ const ReadQr = ({sendQrData}) =>{
     );
 };
 
-export default ReadQr;
+export default ReadQrDesktop;
