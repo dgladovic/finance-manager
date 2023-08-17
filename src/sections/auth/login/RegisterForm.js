@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
+import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Dialog, DialogContent } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 // components
 import axios from 'axios';
+import CircularWithValueLabel from '../../../components/CircularProgress';
 import AuthContext, { AuthProvider } from '../../../context/AuthProvider';
 import Iconify from '../../../components/iconify';
 
@@ -18,6 +19,7 @@ export default function RegisterForm() {
   
   const userRef = useRef();
   const errRef = useRef();
+  const submitRef = useRef(); 
 
   const handleDateChange = (date) => {
     const formDate = new Date(date.$d);
@@ -39,10 +41,26 @@ export default function RegisterForm() {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    setErrMsg('');
+    setErrMsg(''); 
   },[user,pwd]);
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+      setOpen(true);
+  };
+
+  const handleClose = () => {
+      setOpen(false);
+  };
+
+  const handleFlag = (e) =>{
+    if(e === 100){
+      submitRef.current.click();
+    }
+  }
 
   const liveUrl = process.env.REACT_APP_BACKEND_URL;
   
@@ -51,7 +69,7 @@ export default function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(user,pwd,firstName,lastName,dateOfBirth);
-    if(dateOfBirth === ''){
+    if(dateOfBirth.length < 5){
       const formDate = new Date();
       const day = formDate.getDate();
       const month = formDate.getMonth() + 1;
@@ -146,7 +164,20 @@ export default function RegisterForm() {
           }}
         />
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" form="myForm">
+<Dialog open={open} onClose={handleClose} style={{display: 'flex', flexDirection:'column', justifyContent:'space-evenly'}}>
+        <DialogContent>
+          <div style={{ display: 'flex', flexDirection:'column', alignItems: 'center', justifyContent: 'center', height: '300px', width:'300px' }}>
+            <CircularWithValueLabel flag={handleFlag}/>
+            <div style={{marginTop: '20px'}}>Getting things ready!</div>
+            <div style={{marginTop: '20px'}}>If you are not logged in click the button again.</div>
+          </div>
+          <LoadingButton fullWidth size="large" ref={submitRef} type="submit" variant="contained" form="myForm">
+        Register
+      </LoadingButton>
+        </DialogContent>
+      </Dialog>
+
+      <LoadingButton fullWidth size="large" onClick={handleOpen} type="submit" variant="contained" form="myForm">
         Register
       </LoadingButton>
 
