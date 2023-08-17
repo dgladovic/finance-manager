@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { useState, useEffect, useContext } from 'react';
 // @mui
-import { Grid, Button, Container, Stack, Typography } from '@mui/material';
+import { Grid, Button, Container, Stack, Typography, List, ListItem } from '@mui/material';
 // components
 import axios from 'axios';
 import AuthContext, { AuthProvider } from '../context/AuthProvider';
-import ReceiptBar from '../components/receipt/receiptBar';
+import Receipt from '../components/receipt/receipt';
 import Iconify from '../components/iconify';
 import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../sections/@dashboard/blog';
 // mock
@@ -68,27 +68,34 @@ export default function ReceiptsList() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title> Dashboard: Blog | Minimal UI </title>
-      </Helmet>
-
-
+      </Helmet> */}
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Receipt List
-            <span>TOTAL AMOUNT {totalAmount}</span>
+            <span>TOTAL AMOUNT SCANNED: {totalAmount} RSD</span>
+            <p>Scroll through all of your scanned receipts by swiping left or right</p>
           </Typography>
           
-          <BlogPostsSort options={SORT_OPTIONS} />
+          {/* <BlogPostsSort options={SORT_OPTIONS} /> */}
 
         </Stack>
-        <Stack mb={5} spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
-        { receiptsList.map( (e,i)  => (<ReceiptBar amo={e} key={i}/>))
+        {/* <Stack mb={5} spacing={{ xs: 1, sm: 1 }} direction="row" useFlexGap flexWrap="wrap">
+        { RECEIPTS.map( (e,i)  => (<Receipt amo={e} key={i}/>))
         }
-        </Stack>
+        </Stack> */}
 
       </Container>
+
+      <List style={{ display: 'flex', flexDirection: 'row', overflowX: 'auto', alignItems:'flex-start'}}>
+        { receiptsList.map( (e,i)  => (
+        <ListItem>
+        <Receipt amo={e} key={i}/>
+        </ListItem>
+        ))
+        }
+        </List>
 
 
     </>
