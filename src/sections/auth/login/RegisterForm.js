@@ -44,8 +44,9 @@ export default function RegisterForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const liveUrl = 'https://racunscraper.onrender.com/register';
-  const LOGIN_URL = 'http://localhost:4800/register';
+  const liveUrl = process.env.REACT_APP_BACKEND_URL;
+  
+  const registerUrl = `${liveUrl}/register`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
