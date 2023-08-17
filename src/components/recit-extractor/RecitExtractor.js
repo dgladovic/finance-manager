@@ -108,7 +108,7 @@ export default function RecitExtractor(){
             {
                 isFetching === true ? 
                 <div>
-                    <Receipt amo={message}/>
+                    <Receipt amo={message.data}/>
                     <div style={{margin: 'auto', marginTop: '10px', width:'397px', display: 'flex', justifyContent: 'space-between'}}>
                         <button style={SaveButton} onClick={() => saveReceipt(message)}>SAVE</button>
                         <button style={CancelButton} onClick={ ()=>setFetching(false)}>CANCEL</button>
