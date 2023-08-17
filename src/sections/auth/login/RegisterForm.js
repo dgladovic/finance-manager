@@ -52,7 +52,7 @@ export default function RegisterForm() {
     e.preventDefault();
     console.log(user,pwd,firstName,lastName,dateOfBirth);
     try{
-      const response = await axios.post(liveUrl, {
+      const response = await axios.post(registerUrl, {
         email: user, 
         password: pwd,
         first_name: firstName,
