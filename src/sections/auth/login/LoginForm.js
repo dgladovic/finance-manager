@@ -81,8 +81,8 @@ export default function LoginForm() {
 
   return (
     <>
-        <form onSubmit={handleSubmit} id="myForm">
-      <Stack spacing={3}>
+        <form onSubmit={handleSubmit} id="myForm" style={{ zIndex: 1000}}>
+      <Stack spacing={3} style={{ zIndex: 1000}} >
         <TextField 
           name="email" 
           label="Email address" 
@@ -90,6 +90,7 @@ export default function LoginForm() {
           onFocus={() => userRef.current.focus()}
           onChange={(e)=> setUser(e.target.value)}
           value = {user}
+          style={{ zIndex: 1000}}
           required
         />
 
@@ -101,6 +102,7 @@ export default function LoginForm() {
           onFocus={() => pwdRef.current.focus()}
           onChange={(e)=> setPwd(e.target.value)}
           value = {pwd}
+          style={{ zIndex: 1000}}
           required
           InputProps={{
             endAdornment: (
