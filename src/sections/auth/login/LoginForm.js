@@ -16,6 +16,8 @@ export default function LoginForm() {
   const { setAuth } = useContext(AuthContext);
 
   const userRef = useRef();
+  const pwdRef = useRef();
+
   const submitRef = useRef();
   const errRef = useRef();
 
@@ -85,6 +87,7 @@ export default function LoginForm() {
           name="email" 
           label="Email address" 
           ref={userRef}
+          onFocus={() => userRef.current.focus()}
           onChange={(e)=> setUser(e.target.value)}
           value = {user}
           required
@@ -95,6 +98,7 @@ export default function LoginForm() {
           label="Password"
           type={showPassword ? 'text' : 'password'}
           ref={userRef}
+          onFocus={() => pwdRef.current.focus()}
           onChange={(e)=> setPwd(e.target.value)}
           value = {pwd}
           required
