@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
 // hooks
+import InstallPrompt from '../components/installPrompt';
 import useResponsive from '../hooks/useResponsive';
 // components
 import Logo from '../components/logo';
@@ -107,6 +108,7 @@ export default function LoginPage() {
             </Divider> */}
 
             <LoginForm />
+          <InstallPrompt/>
           </StyledContent>
         </Container>
       </StyledRoot>
