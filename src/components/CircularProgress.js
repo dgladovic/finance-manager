@@ -44,7 +44,7 @@ export default function CircularWithValueLabel({flag}) {
   React.useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
-    }, 500);
+    }, 1000);
     return () => {
       clearInterval(timer);
     };
