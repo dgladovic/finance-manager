@@ -130,7 +130,7 @@ export default function LoginForm() {
         </LoadingButton>
         </DialogContent>
       </Dialog>
-        <LoadingButton fullWidth size="large"  onClick={handleOpen} variant="contained" form="myForm">
+        <LoadingButton fullWidth size="large"  onClick={handleOpen} type="submit" variant="contained" form="myForm">
           Login
         </LoadingButton>
     </>

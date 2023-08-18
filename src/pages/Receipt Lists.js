@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Grid, Button, Container, Stack, Typography, List, ListItem } from '@mui/material';
 // components
 import axios from 'axios';
-import AuthContext, { AuthProvider } from '../context/AuthProvider';
+import AuthContext, { AuthProvider, useAuth } from '../context/AuthProvider';
 import Receipt from '../components/receipt/receipt';
 import Iconify from '../components/iconify';
 import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../sections/@dashboard/blog';
@@ -24,7 +24,7 @@ const liveUrl = process.env.REACT_APP_BACKEND_URL;
 
 export default function ReceiptsList() {
 
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
 
   const [totalAmount, setTotalAmount] = useState([]);
   const [receiptsList, setReceiptsList] = useState([]);
@@ -34,7 +34,9 @@ export default function ReceiptsList() {
   const allReceiptsUrl = `${liveUrl}/receipts/${userId}`
 
   useEffect(() => {
+    if(auth.id){
     console.log(auth);
+    console.log(auth.id);
     // Define the function to fetch data
     const getTotalAmount = async () => {
       try {
@@ -64,7 +66,8 @@ export default function ReceiptsList() {
     // return () => {
     //   cleanupLogic();
     // };
-  }, []); // 
+    }
+  }, [auth]); // 
 
   return (
     <>

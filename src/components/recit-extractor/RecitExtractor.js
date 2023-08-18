@@ -5,15 +5,14 @@
 import { Button } from '@mui/material';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import AuthContext from '../../context/AuthProvider';
+import AuthContext, {useAuth} from '../../context/AuthProvider';
 import ReadQrDesktop from '../qr-scanner';
 import Receipt from '../receipt/receipt';
 import ReadQrMobile from '../qr-mobile-scanner-fullscreen';
 
-
 export default function RecitExtractor(){
 
-    const {auth} = useContext(AuthContext);
+  const { auth } = useAuth();
     
     function detectMob() {
         const toMatch = [
