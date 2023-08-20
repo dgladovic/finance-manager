@@ -9,6 +9,7 @@ export default function DotDivider({amount}){
             width: '4px',
             background: 'rgb(0,175,120)',
             borderRadius: '50%',
+            border:'thick'
         }}
             key={i} />);
         }
@@ -18,7 +19,9 @@ export default function DotDivider({amount}){
 return( 
         <div style={{
             display: 'flex',
-            justifyContent: 'space-evenly'
+            justifyContent: 'space-evenly',
+            paddingLeft:'8px', 
+            paddingRight:'8px'
         }}>
         {renderAmount()}
         </div>
