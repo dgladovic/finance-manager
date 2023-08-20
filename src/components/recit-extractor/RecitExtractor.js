@@ -32,7 +32,16 @@ export default function RecitExtractor() {
 
     const [mobile, setMobile] = useState([false]);
     const [showErrorModal, setShowErrorModal] = useState(false);
-    const [errorMsg, setError] = useState(false);
+
+    const TEST = {
+        "response":{
+          "data":{
+            "message":'HEJ'
+          }
+        }
+      }
+
+    const [errorMsg, setError] = useState(TEST);
 
     const [message, setMessage] = useState([]);
     const [isFetching, setFetching] = useState([false]);
