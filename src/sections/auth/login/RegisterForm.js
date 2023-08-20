@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Dialog, DialogContent } from '@mui/material';
+import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Dialog, DialogContent, DialogActions, DialogTitle, Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -41,18 +41,33 @@ export default function RegisterForm() {
   const [lastName, setLastName] = useState('');
   const [dateOfBirth, setDate] = useState('');
 
-  const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const navigate = useNavigate();
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
-  useEffect(() => {
-    setErrMsg('');
-  }, [user, pwd]);
+  const TEST = {
+    "response":{
+      "data":{
+        "message":'HEJ'
+      }
+    }
+  }
+
+  const [errorMsg, setError] = useState(TEST);
+
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
   const [open, setOpen] = useState(false);
+
+  const handleOpenErrorModal = () => {
+    setShowErrorModal(true);
+  };
+
+  const handleCloseErrorModal = () => {
+    setShowErrorModal(false);
+  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -99,11 +114,9 @@ export default function RegisterForm() {
     }
     catch (err) {
       console.log('greska', err);
-      if (!err?.response) {
-        setErrMsg('No Server Response');
+        setError(err);
+        handleOpenErrorModal();
       }
-
-    }
 
   };
 
@@ -202,7 +215,17 @@ export default function RegisterForm() {
           Forgot password?
         </Link>
       </Stack> */}
-
+      <Dialog open={showErrorModal} onClose={handleCloseErrorModal}>
+        <DialogTitle sx={{ color: 'red' }}>Error</DialogTitle>
+        <DialogContent>
+          <p>{errorMsg.response.data.message}</p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseErrorModal} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
 
     </>
   );
