@@ -20,13 +20,13 @@ const Receipt = ({amo}) =>{
             width: "397px"
         }}>
             <ReceiptHeader receipt={receipt}/>
-            <DotDivider amount={24}/>
+            <DotDivider amount={28}/>
             <List style = {{marginTop: '6px'}}>
             {
                 receipt && receipt.items.map((e,i) =>(<>
-                        <ListItem key={i} style={{display: 'flex',justifyContent: 'space-between', marginBottom: '6px'}}>
-                            <span>{e.name}</span> 
-                            <span>{e.total} RSD</span>
+                        <ListItem key={i} style={{display: 'flex',justifyContent: 'space-between', marginBottom: '6px', width:'100%'}}>
+                            <span style={{display: 'block'}}>{e.name}</span> 
+                            <span style={{display: 'block', width:'110px', textAlign:'end'}}>{e.total}<span style={{marginLeft:'3px'}}>RSD</span></span>
                         </ListItem>
                         </>
                 ))
