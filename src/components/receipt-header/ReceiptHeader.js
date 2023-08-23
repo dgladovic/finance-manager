@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 
-import {Store} from '@mui/icons-material'
+import { Store } from '@mui/icons-material';
 
 const ReceiptHeader = ({receipt}) =>{
 
