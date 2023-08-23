@@ -7,7 +7,8 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 // components
 import axios from 'axios';
-import CircularWithValueLabel from '../../../components/CircularProgress';
+import ErrorDialog from '../../../components/ErrorDialog';
+import CircularIndeterminate from '../../../components/CircularIndeterminate';
 import AuthContext, { AuthProvider } from '../../../context/AuthProvider';
 import Iconify from '../../../components/iconify';
 
@@ -191,7 +192,7 @@ export default function RegisterForm() {
           <Dialog open={open} onClose={handleClose} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
             <DialogContent>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '300px', width: '300px' }}>
-                <CircularWithValueLabel flag={handleFlag} />
+                <CircularIndeterminate flag={handleFlag} />
                 <div style={{ marginTop: '20px' }}>Getting things ready!</div>
                 <div style={{ marginTop: '20px' }}>If you are not logged in click the button again.</div>
               </div>
@@ -215,18 +216,7 @@ export default function RegisterForm() {
           Forgot password?
         </Link>
       </Stack> */}
-      <Dialog open={showErrorModal} onClose={handleCloseErrorModal}>
-        <DialogTitle sx={{ color: 'red' }}>Error</DialogTitle>
-        <DialogContent>
-          <p>{errorMsg.response.data.message}</p>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseErrorModal} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
-
+      <ErrorDialog showErrorModal={showErrorModal} errorMsg={errorMsg} setClose={handleCloseErrorModal}/>
     </>
   );
 }
