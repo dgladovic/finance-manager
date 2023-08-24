@@ -1,0 +1,14 @@
+input, textarea {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #fff; /* Light mode background color */
+    color: #000; /* Light mode text color */
+    /* Other styles */
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    input, textarea {
+      background-color: #000; /* Dark mode background color */
+      color: #fff; /* Dark mode text color */
+    }
+  }
