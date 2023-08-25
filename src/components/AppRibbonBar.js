@@ -13,7 +13,7 @@ const AppRibbonBar = () => {
     }
   
     return (
-        <Box position="fixed" bottom={0} width="100%">
+        <Box position="fixed" bottom={0} width="100%" paddingBottom={3} backgroundColor={'white'}>
           <BottomNavigation showLabels>
             <BottomNavigationAction label="Home" icon={<Home />} onClick={() => navigate('/dashboard')} />
             <BottomNavigationAction label="Receipts" icon={<FormatListBulleted />} onClick={() => navigate('/dashboard/receipts')} />
