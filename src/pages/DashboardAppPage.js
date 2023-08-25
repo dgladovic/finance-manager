@@ -17,6 +17,11 @@ import {
   AppCurrentSubject,
   AppConversionRates,
 } from '../sections/@dashboard/app';
+import LatestTransactionWidget from '../components/LatestTransactionWidget';
+import CurrentSavingsWidget from '../components/CurrentSavingsWidget';
+import CashFlowWidget from '../components/CashFlowWidget';
+import ExpenseStructureWidget from '../components/ExpenseStructureWidget';
+
 
 // ----------------------------------------------------------------------
 
@@ -35,21 +40,30 @@ export default function DashboardAppPage() {
         </Typography>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
+
+        <Grid item xs={12} sm={6} md={3}>
+            <CashFlowWidget/>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
+            <CurrentSavingsWidget/>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
+            <LatestTransactionWidget/>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
+            <ExpenseStructureWidget total={100.0}/>
           </Grid>
+
+
+
+
+
+
+
+
 
           {/* <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
