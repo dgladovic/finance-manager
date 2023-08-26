@@ -10,6 +10,10 @@ const ReadQrMobile = ({sendQrData}) => {
 
     const [open, setOpen] = useState(false);
 
+    useEffect(()=>{
+        handleOpen();
+    },[]);
+
     const handleOpen = () => {
         setOpen(true);
     };
@@ -28,11 +32,11 @@ const ReadQrMobile = ({sendQrData}) => {
             <Dialog open={open} onClose={handleClose}>
                 <ReadQrCamera sendQrData={sendQrDataNew}/>
             </Dialog>
-            <button type="button"
+            {/* <button type="button"
                 style={{ margin: 'auto', display: 'block', backgroundColor: 'rgb(0,140,120)', color: 'white', border: 'solid rgb(0,175,120) 5px', borderRadius: '50%', width: '150px', height: '150px' }}
                 onClick={handleOpen}>
                 Scan QR Code With Mobile
-            </button>
+            </button> */}
         </div>
 
     );

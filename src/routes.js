@@ -10,6 +10,7 @@ import RegisterPage from './pages/RegisterPage';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
+import ScanPageNew from './pages/ScanPageNew';
 import ScanPage from './pages/ScanPage';
 import ReceiptsList from './pages/Receipt Lists';
 
@@ -27,7 +28,8 @@ export default function Router() {
         // { path: 'products', element: <ProductsPage /> },
         // { path: 'blog', element: <BlogPage /> },
         { path: 'receipts', element: <ReceiptsList /> },
-        { path: 'scan', element: <ScanPage/>},
+        { path: 'scan', element: <ScanPageNew/>},
+        { path: 'scanpage', element: <ScanPage/>},
       ],
     },
     {
