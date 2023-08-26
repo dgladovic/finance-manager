@@ -3,6 +3,8 @@ import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
 import RecitExtractor from '../components/recit-extractor/RecitExtractor';
 import ScanQRCard from '../components/ScanQRCard';
+import AddTransactionCard from '../components/AddTransactionCard';
+import AddTemplateCard from '../components/AddTemplateCard';
 
 export default function ScanPageNew() {
  
@@ -24,14 +26,14 @@ export default function ScanPageNew() {
             </Grid>
   
             <Grid item xs={12} sm={6} md={3}>
-              {/* <RecitExtractor/> */}
-            </Grid>
-  
-            {/* <Grid item xs={12} sm={6} md={3}>
-              <LatestTransactionWidget/>
+              <AddTransactionCard/>
             </Grid>
   
             <Grid item xs={12} sm={6} md={3}>
+              <AddTemplateCard/>
+            </Grid>
+  
+            {/* <Grid item xs={12} sm={6} md={3}>
               <ExpenseStructureWidget total={100.0}/>
             </Grid> */}
           </Grid>
