@@ -32,6 +32,7 @@ export default function ScanQRCard({ total, sx, color = 'primary', ...other }) {
                     textAlign: 'center',
                     color: 'white',
                     bgcolor: 'rgb(0,175,120)',
+                    height:'250px',
                     ...sx,
                 }}
                 {...other}

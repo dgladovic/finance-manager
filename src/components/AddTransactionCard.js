@@ -32,10 +32,11 @@ export default function AddTransactionCard({ total, sx, color = 'primary', ...ot
                     textAlign: 'center',
                     color: 'white',
                     bgcolor: '#008faf',
+                    height:'250px',
                     ...sx,
                 }}
                 {...other}
-                onClick={()=>navigate('/dashboard/scanpage')}
+                // onClick={()=>navigate('/dashboard/scanpage')}
             >
                 <StyledIcon
                     sx={{
