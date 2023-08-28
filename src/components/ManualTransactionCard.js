@@ -38,7 +38,7 @@ export default function ManualTransactionCard({ total, sx, color = 'primary', ..
                     ...sx,
                 }}
                 {...other}
-                onClick={()=>navigate('/dashboard/scanpage')}
+                onClick={()=>navigate('/dashboard/addtransaction')}
             >
                 <StyledIcon
                     sx={{

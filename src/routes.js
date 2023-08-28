@@ -13,6 +13,7 @@ import DashboardAppPage from './pages/DashboardAppPage';
 import ScanPageNew from './pages/ScanPageNew';
 import ScanPage from './pages/ScanPage';
 import ReceiptsList from './pages/Receipt Lists';
+import AddTransactionPage from './pages/AddTransactionPage';
 
 // ----------------------------------------------------------------------
 
@@ -30,6 +31,7 @@ export default function Router() {
         { path: 'receipts', element: <ReceiptsList /> },
         { path: 'scan', element: <ScanPageNew/>},
         { path: 'scanpage', element: <ScanPage/>},
+        { path: 'addtransaction', element: <AddTransactionPage/>},
       ],
     },
     {
