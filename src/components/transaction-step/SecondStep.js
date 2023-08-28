@@ -24,6 +24,7 @@ const StartStep = ({setTransactionContent}) => {
         const month = formDate.getMonth() + 1;
         const year = formDate.getFullYear();
         setDate(`${year}-${month}-${day}`);
+        return `${year}-${month}-${day}`;
       };
   
       const [categories, setCategories] = useState([]);
@@ -40,8 +41,9 @@ const StartStep = ({setTransactionContent}) => {
 
       const [form, setForm] = useState({formData});
 
-      const handleData = () =>{
-        setTransactionContent(formData);
+      const handleData = (obj) =>{
+        console.log(obj,'amoro')
+        setTransactionContent(obj);
       }
 
     useEffect(() => {
@@ -66,10 +68,9 @@ const StartStep = ({setTransactionContent}) => {
           variant="outlined" 
           onChange={(e) => {
             setAmount(e.target.value);
-            setForm({
-              ...formData, amount
-            });
-            handleData();
+            const obj = {...formData, amount: e.target.value}
+            setForm(obj);
+            handleData(obj);
           }}
           margin="normal" 
         />
@@ -92,11 +93,10 @@ const StartStep = ({setTransactionContent}) => {
               ref={dateRef}
               onFocus={() => dateRef.current.focus()}
               onChange={(e) => {
-                handleDateChange(e)
-                setForm({
-                  ...formData, date
-                });
-                handleData();
+                const tex = handleDateChange(e);
+                const obj = {...formData, date: tex}
+                setForm(obj);
+                handleData(obj);
               }}
               // value={dateOfBirth}
               defaultValue={dayjs(today)}
