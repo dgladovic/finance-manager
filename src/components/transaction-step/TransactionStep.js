@@ -29,9 +29,14 @@ const defaultTemp = { id: '3', name: 'Template 3' };
 export default function TransactionStep() {
   const [activeStep, setActiveStep] = useState(0);
   const [template, setTemplate] = useState([]);
+  const [content, setContent] = useState([]);
 
   const setTemplateContext = (data) =>{
     setTemplate(data);
+  }
+
+  const setTransactionContent = (data) =>{
+    setContent(data);
   }
 
   const handleNext = () => {
@@ -44,10 +49,10 @@ export default function TransactionStep() {
 
   return (
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', flexDirection:'column' }}>
-      <Stepper activeStep={activeStep} alternativeLabel>
+      <Stepper activeStep={activeStep} alternativeLabel >
         {steps.map((label, index) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel StepIconProps={{ style: { color: '#00af78' } }}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
@@ -55,9 +60,9 @@ export default function TransactionStep() {
         <div key={label} style={{ display: index === activeStep ? 'block' : 'none' }}>
           <Card variant="outlined" sx={{ width: '90%', maxWidth:'800px', margin:'auto', marginTop:'40px', marginBottom:'40px' }}>
             <CardContent style={{paddingTop:'10px'}}>
-                <StandardTransaction template={template}/>
+                <StandardTransaction template={template} content={content}/>
                 {activeStep === 0 && <ZeroStep templates={templates} setTemplateContext={setTemplateContext}/> }
-                {activeStep === 1 && <StartStep/>}
+                {activeStep === 1 && <StartStep setTransactionContent={setTransactionContent}/>}
                 {activeStep === 2 && <LastStep/>}
             </CardContent>
             <CardActions sx={{ justifyContent: 'space-around', marginBottom:'20px' }}>

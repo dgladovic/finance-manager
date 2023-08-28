@@ -3,15 +3,22 @@ import { FormControl, FormControlLabel, Checkbox, RadioGroup, Select, MenuItem, 
 import Avatar from '@mui/material/Avatar';
 import {CalendarMonthRounded, PlusOne }from '@mui/icons-material'
 
-const StandardTransaction = ({ template }) => {
+const StandardTransaction = ({ template, content }) => {
 
     const defaultTemp = { name: 'Template 3' };
 
+    const fontColor = 'black';
+    const bckCol = 'white'
+
     const [selectedTemplate, setSelectedTemplate] = useState('');
+
+    useEffect(()=>{
+
+    },[])
 
     return (<>
 
-        <Card variant="outlined" sx={{ backgroundColor: '#4CAF50', color: 'white', marginTop: 2 }}>
+        <Card variant="outlined" sx={{ backgroundColor: bckCol, color: fontColor, marginTop: 2, border: 'solid 4px #00AF78' }}>
             <CardHeader title={
                 <div style={{display:'flex', justifyContent:'flex-end'}}>
                     <span style={{}}>Transportation</span>
@@ -24,7 +31,7 @@ const StandardTransaction = ({ template }) => {
                 }
                 subheader={
                     <div style={{display:'flex', justifyContent:'flex-end'}}>
-                        <span style={{color: 'white'}}>Bus pass</span>
+                        <span style={{color: fontColor}}>Bus pass</span>
                     </div>
                 }
                 sx={{padding: 3}}
@@ -37,7 +44,7 @@ const StandardTransaction = ({ template }) => {
                 {/* {template} */}
                     <div style={{display:'flex', alignItems:'center',justifyContent:'space-between'}}>
                         <span >Date:</span>
-                        <span >14-07-2023</span>
+                        <span >{content.date}</span>
                     </div>
                     <div style={{ justifyContent:'space-between', display:'flex'}}>
                         <span style={{ textAlign:'end'}}>Label:</span>
@@ -45,7 +52,7 @@ const StandardTransaction = ({ template }) => {
                     </div>
                     <div style={{ justifyContent:'space-between', marginTop:'14px', display:'flex'}}>
                         <span style={{ textAlign:'end', fontWeight:'bold'}}>Amount:</span>
-                        <span style={{ textAlign:'end', fontWeight:'bold'}}>10,000.00 RSD</span>
+                        <span style={{ textAlign:'end', fontWeight:'bold'}}>{content.amount}</span>
                     </div>
             </CardContent>
         </Card>

@@ -1,13 +1,5 @@
 import {useState,useRef, useEffect} from 'react';
 import dayjs from 'dayjs';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -21,14 +13,12 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 const fetchCategories = () => Promise.resolve([]);
 const fetchCustomLabels = () => Promise.resolve([]);
 
-const StartStep = () => {
-    
-    const [categories, setCategories] = useState([]);
-    const [customLabels, setCustomLabels] = useState([]);
-    const [dateOfBirth, setDate] = useState(dayjs(new Date()));
+const StartStep = ({setTransactionContent}) => {
+
+    const today= new Date();
+
 
     const handleDateChange = (date) => {
-        console.log(date);
         const formDate = new Date(date.$d);
         const day = formDate.getDate();
         const month = formDate.getMonth() + 1;
@@ -36,6 +26,24 @@ const StartStep = () => {
         setDate(`${year}-${month}-${day}`);
       };
   
+      const [categories, setCategories] = useState([]);
+      const [amount, setAmount] = useState([]);
+      const [customLabels, setCustomLabels] = useState([]);
+      const [date, setDate] = useState('');
+  
+      const formData = {
+        amount,
+        category: '',
+        date,
+        label: ''
+      }
+
+      const [form, setForm] = useState({formData});
+
+      const handleData = () =>{
+        setTransactionContent(formData);
+      }
+
     useEffect(() => {
       fetchCategories().then((categoriesData) => {
         setCategories(categoriesData);
@@ -46,11 +54,25 @@ const StartStep = () => {
     }, []);
 
     const dateRef = useRef();
+    const formRef = useRef();
 
   
     return (
       <div>
-        <TextField label="Amount" fullWidth variant="outlined" margin="normal" />
+        <form id='myForm'>
+        <TextField 
+          label="Amount" 
+          fullWidth 
+          variant="outlined" 
+          onChange={(e) => {
+            setAmount(e.target.value);
+            setForm({
+              ...formData, amount
+            });
+            handleData();
+          }}
+          margin="normal" 
+        />
   
         <FormControl fullWidth variant="outlined" margin="normal" style={{marginBottom:'24px'}}>
           <InputLabel>Category</InputLabel>
@@ -63,14 +85,21 @@ const StartStep = () => {
           </Select>
         </FormControl>
 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               name="date_of_birth"
-              label="Transaction date"
+              label="Date of Birth"
               ref={dateRef}
               onFocus={() => dateRef.current.focus()}
-              onChange={(e) => handleDateChange(e)}
-              value={dateOfBirth}
+              onChange={(e) => {
+                handleDateChange(e)
+                setForm({
+                  ...formData, date
+                });
+                handleData();
+              }}
+              // value={dateOfBirth}
+              defaultValue={dayjs(today)}
               required
             />
           </LocalizationProvider>
@@ -85,6 +114,7 @@ const StartStep = () => {
             ))}
           </Select>
         </FormControl>
+        </form>
       </div>
     );
   };
