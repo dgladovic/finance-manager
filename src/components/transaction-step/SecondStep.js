@@ -5,6 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { Autocomplete } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
@@ -13,7 +14,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 const fetchCategories = () => Promise.resolve([]);
 const fetchCustomLabels = () => Promise.resolve([]);
 
-const StartStep = ({setTransactionContent}) => {
+const StartStep = ({setTransactionContent, error}) => {
 
     const today= new Date();
 
@@ -27,7 +28,8 @@ const StartStep = ({setTransactionContent}) => {
         return `${year}-${month}-${day}`;
       };
   
-      const [categories, setCategories] = useState([]);
+      const [categoryForm, setFormCategory] = useState([]);
+      const [subCategoryForm, setFormSubcategory] = useState([]);
       const [amount, setAmount] = useState([]);
       const [customLabels, setCustomLabels] = useState([]);
       const [date, setDate] = useState('');
@@ -36,7 +38,7 @@ const StartStep = ({setTransactionContent}) => {
         amount,
         category: '',
         date,
-        label: ''
+        // label: ''
       }
 
       const [form, setForm] = useState({formData});
@@ -46,23 +48,65 @@ const StartStep = ({setTransactionContent}) => {
         setTransactionContent(obj);
       }
 
-    useEffect(() => {
-      fetchCategories().then((categoriesData) => {
-        setCategories(categoriesData);
-      });
-      fetchCustomLabels().then((customLabelsData) => {
-        setCustomLabels(customLabelsData);
-      });
-    }, []);
+    // useEffect(() => {
+    //   console.log(error,'TESTIRAM_ERROR');
+    //   switch(error){
+    //     case '0':
+    //       amountRef.setError();
+    //       break;
+    //     default:
+    //       console.log('allgood');
+    //       break;
+    //   }
+    // }, [error]);
 
     const dateRef = useRef();
+    const amountRef = useRef();
     const formRef = useRef();
+  
+    // podaci za autocomplete
 
+    const categories = [
+      { id: '100', name: 'Food' },
+      { id: '200', name: 'Transportation' },
+      { id: '300', name: 'Housing' }
+    ];
+    
+    const subcategories = [
+      { id: '101', name: 'Fruits', parentId: '100' },
+      { id: '102', name: 'Vegetables', parentId: '100' },
+      { id: '103', name: 'Grains', parentId: '100' },
+      { id: '201', name: 'Car', parentId: '200' },
+      { id: '202', name: 'Bus', parentId: '200' },
+      { id: '203', name: 'Bike', parentId: '200' },
+      { id: '301', name: 'Apartment', parentId: '300' },
+      { id: '302', name: 'House', parentId: '300' },
+      { id: '303', name: 'Condo', parentId: '300' }
+    ];
+
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedSubcategory, setSelectedSubcategory] = useState('');
+    const [filteredSubcategory, setFilteredSubcategory] = useState('');
+  
+    const handleCategoryChange = (event, newValue) => {
+      setSelectedCategory(newValue);
+      console.log(newValue,'opa');
+      setSelectedSubcategory('');
+    };
+  
+    const handleSubcategoryChange = (event, newValue) => {
+      setSelectedSubcategory(newValue);
+    };
+  
+    const getfilteredSubcategories = (category) => {
+      setFilteredSubcategory(subcategories.filter(subcategory => subcategory.parentId === category.id));
+    }
   
     return (
       <div>
         <form id='myForm'>
-        <TextField 
+        <TextField
+          ref={amountRef} 
           label="Amount" 
           fullWidth 
           variant="outlined" 
@@ -74,17 +118,42 @@ const StartStep = ({setTransactionContent}) => {
           }}
           margin="normal" 
         />
-  
-        <FormControl fullWidth variant="outlined" margin="normal" style={{marginBottom:'24px'}}>
-          <InputLabel>Category</InputLabel>
-          <Select>
-            {categories.map((category) => (
-              <MenuItem key={category.id} value={category.id}>
-                {category.name}
-              </MenuItem>
-            ))}
-          </Select>
+
+      <FormControl fullWidth variant="outlined" margin="normal">
+        <Autocomplete
+          options={categories}
+          getOptionLabel={(category) => category.name !== undefined ? category.name : ''}
+          value={selectedCategory}
+          onChange={(event,value)=>{
+            console.log(value,'opa2san')
+            getfilteredSubcategories(value);
+            handleCategoryChange(event,value);
+            setFormCategory(value);
+            const obj = {...formData, category: value.id}
+            setForm(obj);
+            handleData(obj);
+          }}
+          renderInput={(params) => <TextField {...params} label="Category" variant="outlined" />}
+        />
+      </FormControl>
+      {selectedCategory && (
+        <FormControl fullWidth variant="outlined" margin="normal" style={{ marginBottom: '24px' }}>
+          <Autocomplete
+            options={filteredSubcategory}
+            getOptionLabel={(subcategory) => subcategory.name !== undefined ? subcategory.name : ''}
+            value={selectedSubcategory}
+            onChange={(event,value)=>{
+              console.log(value,'opa3san')
+              handleSubcategoryChange(event,value);
+              setFormCategory(value);
+              const obj = {...formData, category: value.id}
+              setForm(obj);
+              handleData(obj);
+            }}
+            renderInput={(params) => <TextField {...params} label="Subcategory" variant="outlined" />}
+          />
         </FormControl>
+      )}
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
