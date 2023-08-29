@@ -81,25 +81,37 @@ export default function TransactionStep() {
   const handleNext = () => {
     if(activeStep === 1){ // proverava da li je popunjena forma
       setPersistentContent(content);
-      const keyz = Object.values(content);
-      let validation;
-      let number = 100;
-      const valid = keyz.forEach((e,i)=>{
-        console.log(e.length,'testiram-stvari');
-        if(e.length < 2){
-          validation = false;
-          number = i;
-          return false;
-        }
-        return true;  
-      });
-      if(keyz.length === 0 || !validation){
-        console.log('testiram-nikako',number); // ovo radi
-        setErrorContent(number);
-        // potrebno je da se setuje error bool to moze u state
+      const amountBool = content.amount.length < 1 ? 1 : false;
+      console.log(amountBool,content.category,'TEST!-raw');
+      console.log(!amountBool,!content.category,'TEST!-raw-if');
+
+      if(amountBool || !content.category){
+        setErrorContent({
+          amount: amountBool,
+          category: !content.category,
+        });
+        return;
       }
-        console.log(keyz,'testiram');
-        console.log(validation,'testiram2');
+
+      // const keyz = Object.values(content);
+      // let validation;
+      // let number = 100;
+      // const valid = keyz.forEach((e,i)=>{
+      //   console.log(e.length,'testiram-stvari');
+      //   if(e.length < 2){
+      //     validation = false;
+      //     number = i;
+      //     return false;
+      //   }
+      //   return true;  
+      // });
+      // if(keyz.length === 0 || !validation){
+      //   console.log('testiram-nikako',number); // ovo radi
+      //   setErrorContent(number);
+      //   // potrebno je da se setuje error bool to moze u state
+      // }
+      //   console.log(keyz,'testiram');
+      //   console.log(validation,'testiram2');
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };

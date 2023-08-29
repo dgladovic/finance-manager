@@ -9,11 +9,6 @@ import { Autocomplete } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-
-// Replace this with your API fetch logic for categories and custom labels
-const fetchCategories = () => Promise.resolve([]);
-const fetchCustomLabels = () => Promise.resolve([]);
-
 const StartStep = ({ setTransactionContent, error, persistentContent }) => {
 
   const today = new Date();
@@ -74,6 +69,10 @@ const StartStep = ({ setTransactionContent, error, persistentContent }) => {
     setTransactionContent(form);
     console.log(form, 'amoro');
   }, [form]);
+
+  useEffect(() => {
+
+  }, [error]);
 
   const dateRef = useRef();
   const amountRef = useRef();
@@ -158,6 +157,8 @@ const StartStep = ({ setTransactionContent, error, persistentContent }) => {
           // }}
           onChange={handleAmountChange}
           margin="normal"
+          error={error.amount}
+          helperText={error.amount && "Amount is required"}
         />
 
         <FormControl fullWidth variant="outlined" margin="normal">
@@ -175,7 +176,8 @@ const StartStep = ({ setTransactionContent, error, persistentContent }) => {
             //   handleData(obj);
             // }}
             onChange={handleCategoryChange}
-            renderInput={(params) => <TextField {...params} label="Category" variant="outlined" />}
+            renderInput={(params) => <TextField {...params} label="Category" variant="outlined" error={error.category}
+            helperText={error.category && "Category is required"}/>}
           />
         </FormControl>
         {selectedCategory && (
