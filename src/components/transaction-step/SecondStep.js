@@ -17,6 +17,10 @@ const fetchCustomLabels = () => Promise.resolve([]);
 const StartStep = ({ setTransactionContent, error, persistentContent }) => {
 
   const today = new Date();
+  const day = today.getDate();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const fulldate = `${year}-${month}-${day}`;
 
   const handleDateChange = (date) => {
     const formDate = new Date(date.$d);
@@ -50,7 +54,7 @@ const StartStep = ({ setTransactionContent, error, persistentContent }) => {
     amount: [],
     category: '',
     subcategory: '',
-    date: ''
+    date: fulldate
   });
 
   useEffect(() => {
@@ -198,7 +202,7 @@ const StartStep = ({ setTransactionContent, error, persistentContent }) => {
           <DatePicker
             sx={{marginTop:'15px', marginBottom:'6px'}}
             name="date_of_birth"
-            label="Date of Birth"
+            label="Transaction Date"
             ref={dateRef}
             onFocus={() => dateRef.current.focus()}
             onChange={(e) => handleDateChange(e)}
