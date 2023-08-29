@@ -127,7 +127,7 @@ export default function TransactionStep() {
                 <StandardTransaction template={template} content={content}  contMeta={contMeta} contMetaSub={contMetaSub}/>
                 {activeStep === 0 && <ZeroStep templates={templates} setTemplateContext={setTemplateContext}/> }
                 {activeStep === 1 && <StartStep setTransactionContent={setTransactionContent} error={errorContent} persistentContent={persistentContent}/>}
-                {activeStep === 2 && <LastStep persistentContent={persistentContent} setTransactionContent={setTransactionContent}/>}
+                {activeStep === 2 && <LastStep persistentContent={persistentContent}/>}
             </CardContent>
             <CardActions sx={{ justifyContent: 'space-around', marginBottom:'20px' }}>
               {activeStep !== 0 && (

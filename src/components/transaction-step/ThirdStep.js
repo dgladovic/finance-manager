@@ -22,7 +22,7 @@ import { Typography } from '@mui/material';
 const fetchCategories = () => Promise.resolve([]);
 const fetchCustomLabels = () => Promise.resolve([]);
 
-const LastStep = ({persistentContent, setTransactionContent}) => {
+const LastStep = ({persistentContent}) => {
 
   const [form, setForm] = useState({...persistentContent});
 
