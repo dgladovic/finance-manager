@@ -111,6 +111,10 @@ export default function TransactionStep() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const handleSubmit = () =>{
+    console.log('SENT-PAYLOAD',persistentContent);
+  }
+
   return (
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', flexDirection:'column' }}>
       <Stepper activeStep={activeStep} alternativeLabel >
@@ -142,7 +146,7 @@ export default function TransactionStep() {
                 </Button>
               )}
               {activeStep === steps.length - 1 && (
-                <Button variant="contained" style={{backgroundColor: '#00af78'}}>
+                <Button onClick={handleSubmit} variant="contained" style={{backgroundColor: '#00af78'}}>
                   Submit
                 </Button>
               )}
