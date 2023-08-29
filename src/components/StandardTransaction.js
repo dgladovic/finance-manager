@@ -3,7 +3,7 @@ import { FormControl, FormControlLabel, Checkbox, RadioGroup, Select, MenuItem, 
 import Avatar from '@mui/material/Avatar';
 import {CalendarMonthRounded, PlusOne }from '@mui/icons-material'
 
-const StandardTransaction = ({ template, content }) => {
+const StandardTransaction = ({ template, content, contMeta, contMetaSub}) => {
 
     const defaultTemp = { name: 'Template 3' };
 
@@ -11,9 +11,9 @@ const StandardTransaction = ({ template, content }) => {
     const bckCol = 'white'
 
     const [selectedTemplate, setSelectedTemplate] = useState('');
+    const [abba, setAbba] = useState('');
 
     useEffect(()=>{
-
     },[])
 
     return (<>
@@ -21,7 +21,7 @@ const StandardTransaction = ({ template, content }) => {
         <Card variant="outlined" sx={{ backgroundColor: bckCol, color: fontColor, marginTop: 2, border: 'solid 4px #00AF78' }}>
             <CardHeader title={
                 <div style={{display:'flex', justifyContent:'flex-end'}}>
-                    <span style={{}}>Transportation</span>
+                    <span style={{}}>{contMeta.name ?? '------'}</span>
                 </div>
             }
                 avatar={
@@ -31,7 +31,7 @@ const StandardTransaction = ({ template, content }) => {
                 }
                 subheader={
                     <div style={{display:'flex', justifyContent:'flex-end'}}>
-                        <span style={{color: fontColor}}>Bus pass</span>
+                        <span style={{color: fontColor}}>{contMetaSub.name ?? '---'}</span>
                     </div>
                 }
                 sx={{padding: 3}}

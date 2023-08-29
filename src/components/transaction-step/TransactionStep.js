@@ -1,4 +1,4 @@
-import {useState}from 'react';
+import {useEffect, useState}from 'react';
 import dayjs from 'dayjs';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -26,11 +26,56 @@ const templates = [
 
 const defaultTemp = { id: '3', name: 'Template 3' };
 
+const categories = [
+  { id: '100', name: 'Food' },
+  { id: '200', name: 'Transportation' },
+  { id: '300', name: 'Housing' }
+];
+
+const subcategories = [
+  { id: '101', name: 'Fruits', parentId: '100' },
+  { id: '102', name: 'Vegetables', parentId: '100' },
+  { id: '103', name: 'Grains', parentId: '100' },
+  { id: '201', name: 'Car', parentId: '200' },
+  { id: '202', name: 'Bus', parentId: '200' },
+  { id: '203', name: 'Bike', parentId: '200' },
+  { id: '301', name: 'Apartment', parentId: '300' },
+  { id: '302', name: 'House', parentId: '300' },
+  { id: '303', name: 'Condo', parentId: '300' }
+];
+
 export default function TransactionStep() {
   const [activeStep, setActiveStep] = useState(0);
   const [template, setTemplate] = useState([]);
-  const [content, setContent] = useState([]);
+  const [content, setContent] = useState({
+    amount: [],
+    category: '',
+    subcategory: '',
+    date: ''
+  });
   const [errorContent, setErrorContent] = useState(false);
+
+  const [contMeta, setContMeta] = useState({
+    id: '',
+    name:''
+  });
+
+  const [contMetaSub, setContMetaSub] = useState({
+    id: '',
+    name:''
+  });
+
+  useEffect(()=>{
+    let catName = [];
+    catName = content.category.length > 1 ? categories.filter((cat) => cat.id === content.category)[0] : [{name:`---`}];
+    setContMeta(catName);
+  },[content.category]);
+
+  useEffect(()=>{
+    let catName = [];
+    catName = content.subcategory.length > 1 ? subcategories.filter((cat) => cat.id === content.subcategory)[0] : [{name:`---`}];
+    setContMetaSub(catName);
+  },[content.subcategory]);
 
   const setTemplateContext = (data) =>{
     setTemplate(data);
@@ -82,7 +127,7 @@ export default function TransactionStep() {
         <div key={label} style={{ display: index === activeStep ? 'block' : 'none' }}>
           <Card variant="outlined" sx={{ width: '90%', maxWidth:'800px', margin:'auto', marginTop:'40px', marginBottom:'40px' }}>
             <CardContent style={{paddingTop:'10px'}}>
-                <StandardTransaction template={template} content={content}/>
+                <StandardTransaction template={template} content={content}  contMeta={contMeta} contMetaSub={contMetaSub}/>
                 {activeStep === 0 && <ZeroStep templates={templates} setTemplateContext={setTemplateContext}/> }
                 {activeStep === 1 && <StartStep setTransactionContent={setTransactionContent} error={errorContent}/>}
                 {activeStep === 2 && <LastStep/>}
