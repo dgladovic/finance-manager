@@ -22,7 +22,13 @@ import { Typography } from '@mui/material';
 const fetchCategories = () => Promise.resolve([]);
 const fetchCustomLabels = () => Promise.resolve([]);
 
-const LastStep = () => {
+const LastStep = ({persistentContent, setTransactionContent}) => {
+
+  const [form, setForm] = useState({...persistentContent});
+
+  useEffect(()=>{
+    console.log(form,'TEST!')
+  },[form]);
     return (
       <div>
         <Typography>Is this ok?</Typography>

@@ -54,26 +54,19 @@ export default function TransactionStep() {
     date: ''
   });
   const [errorContent, setErrorContent] = useState(false);
-
-  const [contMeta, setContMeta] = useState({
-    id: '',
-    name:''
-  });
-
-  const [contMetaSub, setContMetaSub] = useState({
-    id: '',
-    name:''
-  });
+  const [persistentContent, setPersistentContent] = useState(null);
+  const [contMeta, setContMeta] = useState({id: '',name:''});
+  const [contMetaSub, setContMetaSub] = useState({id:'',name:''});
 
   useEffect(()=>{
     let catName = [];
-    catName = content.category.length > 1 ? categories.filter((cat) => cat.id === content.category)[0] : [{name:`---`}];
+    catName = content?.category.length > 1 ? categories.filter((cat) => cat.id === content.category)[0] : [{name:`---`}];
     setContMeta(catName);
   },[content.category]);
 
   useEffect(()=>{
     let catName = [];
-    catName = content.subcategory.length > 1 ? subcategories.filter((cat) => cat.id === content.subcategory)[0] : [{name:`---`}];
+    catName = content?.subcategory.length > 1 ? subcategories.filter((cat) => cat.id === content.subcategory)[0] : [{name:`---`}];
     setContMetaSub(catName);
   },[content.subcategory]);
 
@@ -87,6 +80,7 @@ export default function TransactionStep() {
 
   const handleNext = () => {
     if(activeStep === 1){ // proverava da li je popunjena forma
+      setPersistentContent(content);
       const keyz = Object.values(content);
       let validation;
       let number = 100;
@@ -111,6 +105,9 @@ export default function TransactionStep() {
   };
 
   const handleBack = () => {
+    if(activeStep === 2){
+      setContent(persistentContent);
+    }
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
@@ -129,8 +126,8 @@ export default function TransactionStep() {
             <CardContent style={{paddingTop:'10px'}}>
                 <StandardTransaction template={template} content={content}  contMeta={contMeta} contMetaSub={contMetaSub}/>
                 {activeStep === 0 && <ZeroStep templates={templates} setTemplateContext={setTemplateContext}/> }
-                {activeStep === 1 && <StartStep setTransactionContent={setTransactionContent} error={errorContent}/>}
-                {activeStep === 2 && <LastStep/>}
+                {activeStep === 1 && <StartStep setTransactionContent={setTransactionContent} error={errorContent} persistentContent={persistentContent}/>}
+                {activeStep === 2 && <LastStep persistentContent={persistentContent} setTransactionContent={setTransactionContent}/>}
             </CardContent>
             <CardActions sx={{ justifyContent: 'space-around', marginBottom:'20px' }}>
               {activeStep !== 0 && (

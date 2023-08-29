@@ -14,7 +14,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 const fetchCategories = () => Promise.resolve([]);
 const fetchCustomLabels = () => Promise.resolve([]);
 
-const StartStep = ({ setTransactionContent, error }) => {
+const StartStep = ({ setTransactionContent, error, persistentContent }) => {
 
   const today = new Date();
 
@@ -53,10 +53,14 @@ const StartStep = ({ setTransactionContent, error }) => {
     date: ''
   });
 
-  const handleData = (obj) => {
-    // console.log(obj,'amoro')
-    // setTransactionContent(obj);
-  }
+  useEffect(() => {
+    const modif = {
+      ...persistentContent
+    }
+    if(modif.amount || modif.category || modif.date){
+      setForm(persistentContent);
+    }
+  }, []);
 
   useEffect(() => {
     if(form.category === ''){
