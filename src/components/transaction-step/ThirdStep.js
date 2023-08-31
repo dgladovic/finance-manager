@@ -30,8 +30,8 @@ const LastStep = ({persistentContent}) => {
     console.log(form,'TEST!')
   },[form]);
     return (
-      <div>
-        <Typography>Is this ok?</Typography>
+      <div style={{margin:'auto', marginTop:'20px', display:'flex', justifyContent:'center'}}>
+        <Typography variant="h5">Is this ok?</Typography>
       </div>
     );
   };
