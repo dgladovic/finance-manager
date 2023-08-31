@@ -8,6 +8,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { Autocomplete } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import categories from '../../_mock/categories';
+
 
 const StartStep = ({ setTransactionContent, error, persistentContent }) => {
 
@@ -80,11 +82,7 @@ const StartStep = ({ setTransactionContent, error, persistentContent }) => {
 
   // podaci za autocomplete
 
-  const categories = [
-    { id: '100', name: 'Food' },
-    { id: '200', name: 'Transportation' },
-    { id: '300', name: 'Housing' }
-  ];
+  const categoriesList = categories;
 
   const subcategories = [
     { id: '101', name: 'Fruits', parentId: '100' },
@@ -163,7 +161,7 @@ const StartStep = ({ setTransactionContent, error, persistentContent }) => {
 
         <FormControl fullWidth variant="outlined" margin="normal">
           <Autocomplete
-            options={categories}
+            options={categoriesList}
             getOptionLabel={(category) => category.name !== undefined ? category.name : ''}
             value={selectedCategory}
             // onChange={(event,value)=>{

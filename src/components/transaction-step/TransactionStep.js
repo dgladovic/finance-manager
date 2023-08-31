@@ -15,6 +15,8 @@ import StartStep from './SecondStep';
 import ZeroStep from './StartStep';
 import StandardTransaction from '../StandardTransaction';
 import LastStep from './ThirdStep';
+import categories from '../../_mock/categories';
+
 
 const steps = [
   'Pick kind',
@@ -29,11 +31,7 @@ const templates = [
 
 const defaultTemp = { id: '3', name: 'Template 3' };
 
-const categories = [
-  { id: '100', name: 'Food' },
-  { id: '200', name: 'Transportation' },
-  { id: '300', name: 'Housing' }
-];
+const categoriesList = categories;
 
 const subcategories = [
   { id: '101', name: 'Fruits', parentId: '100' },
@@ -70,7 +68,7 @@ export default function TransactionStep() {
 
   useEffect(()=>{
     let catName = [];
-    catName = content?.category.length > 1 ? categories.filter((cat) => cat.id === content.category)[0] : [{name:`---`}];
+    catName = content?.category.length > 1 ? categoriesList.filter((cat) => cat.id === content.category)[0] : [{name:`---`}];
     setContMeta(catName);
   },[content.category]);
 
@@ -164,7 +162,7 @@ export default function TransactionStep() {
         <div key={label} style={{ display: index === activeStep ? 'block' : 'none' }}>
           <Card variant="outlined" sx={{ width: '90%', maxWidth:'800px', margin:'auto', marginTop:'40px', marginBottom:'40px' }}>
             <CardContent style={{paddingTop:'10px'}}>
-                <StandardTransaction template={template} content={content}  contMeta={contMeta} contMetaSub={contMetaSub}/>
+                <StandardTransaction template={template} content={content} />
                 {activeStep === 0 && <ZeroStep templates={templates} setTemplateContext={setTemplateContext}/> }
                 {activeStep === 1 && <StartStep setTransactionContent={setTransactionContent} error={errorContent} persistentContent={persistentContent}/>}
                 {activeStep === 2 && <LastStep persistentContent={persistentContent}/>}
