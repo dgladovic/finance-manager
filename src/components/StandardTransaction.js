@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { PropTypes } from 'prop-types';
 import { FormControl, FormControlLabel, Checkbox, RadioGroup, Select, MenuItem, Card, CardContent, CardHeader    } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import {CalendarMonthRounded, PlusOne }from '@mui/icons-material'
+import {CalendarMonthRounded, PlusOne }from '@mui/icons-material';
+import categories from '../_mock/categories';
+import Icon from './color-utils/Icon';
+import Iconify from './iconify/Iconify';
 
 const StandardTransaction = ({ template, content, contMeta, contMetaSub}) => {
 
@@ -13,25 +17,37 @@ const StandardTransaction = ({ template, content, contMeta, contMetaSub}) => {
     const [selectedTemplate, setSelectedTemplate] = useState('');
     const [abba, setAbba] = useState('');
 
+    const [categoryMeta, setCategoryMeta] = useState({id: "100",name: "Hrana",color: "#f44336",iconName: "material-symbols:restaurant"});
+    const [subcategoryMeta, setSubCategoryMeta] = useState('');
+
+
     useEffect(()=>{
-    },[])
+        console.log(content,'TEST!-reaw');
+        const displayCategory = categories.find((cat) => cat.id === content.category);
+        if(displayCategory){
+            setCategoryMeta(()=>displayCategory);
+        }
+        console.log(displayCategory,'TEST!-stv')
+    },[content.category])
 
     return (<>
 
         <Card variant="outlined" sx={{ width:'100%', backgroundColor: bckCol, color: fontColor, marginTop: 2, border: 'solid 4px #00AF78' }}>
             <CardHeader title={
                 <div style={{display:'flex', justifyContent:'flex-end'}}>
-                    <span style={{}}>{contMeta.name ?? '------'}</span>
+                    <span style={{}}>{categoryMeta.name ?? '------'}</span>
                 </div>
             }
                 avatar={
                 <Avatar sx={{width: 56, height: 56}}>
-                    <PlusOne />
+                    <div style={{backgroundColor: categoryMeta.color, width:'56px', height:'56px', justifyContent:'center', display:'flex', alignItems:'center'}}>
+                        <Iconify  icon={categoryMeta.iconName} width={32}/>
+                    </div>
                 </Avatar>
                 }
                 subheader={
                     <div style={{display:'flex', justifyContent:'flex-end'}}>
-                        <span style={{color: fontColor}}>{contMetaSub.name ?? '---'}</span>
+                        <span style={{color: fontColor}}>{categoryMeta.name ?? '---'}</span>
                     </div>
                 }
                 sx={{padding: 3}}
