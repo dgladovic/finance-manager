@@ -9,6 +9,7 @@ import { Autocomplete } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import categories from '../../_mock/categories';
+import subcategories from '../../_mock/subcategories';
 
 
 const StartStep = ({ setTransactionContent, error, persistentContent }) => {
@@ -84,17 +85,7 @@ const StartStep = ({ setTransactionContent, error, persistentContent }) => {
 
   const categoriesList = categories;
 
-  const subcategories = [
-    { id: '101', name: 'Fruits', parentId: '100' },
-    { id: '102', name: 'Vegetables', parentId: '100' },
-    { id: '103', name: 'Grains', parentId: '100' },
-    { id: '201', name: 'Car', parentId: '200' },
-    { id: '202', name: 'Bus', parentId: '200' },
-    { id: '203', name: 'Bike', parentId: '200' },
-    { id: '301', name: 'Apartment', parentId: '300' },
-    { id: '302', name: 'House', parentId: '300' },
-    { id: '303', name: 'Condo', parentId: '300' }
-  ];
+  const subcategoriesList = subcategories;
 
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubcategory, setSelectedSubcategory] = useState('');
@@ -136,7 +127,7 @@ const StartStep = ({ setTransactionContent, error, persistentContent }) => {
     if(!category){
       return setFilteredSubcategory('');
     }
-    return setFilteredSubcategory(subcategories.filter(subcategory => subcategory.parentId === category.id));
+    return setFilteredSubcategory(subcategoriesList.filter(subcategory => subcategory.parent_id === category.id));
   }
 
   return (
