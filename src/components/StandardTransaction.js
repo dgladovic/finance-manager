@@ -18,7 +18,7 @@ const StandardTransaction = ({ template, content, contMeta, contMetaSub}) => {
 
     return (<>
 
-        <Card variant="outlined" sx={{ backgroundColor: bckCol, color: fontColor, marginTop: 2, border: 'solid 4px #00AF78' }}>
+        <Card variant="outlined" sx={{ width:'100%', backgroundColor: bckCol, color: fontColor, marginTop: 2, border: 'solid 4px #00AF78' }}>
             <CardHeader title={
                 <div style={{display:'flex', justifyContent:'flex-end'}}>
                     <span style={{}}>{contMeta.name ?? '------'}</span>
