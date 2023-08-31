@@ -1,4 +1,5 @@
-import {useEffect, useState}from 'react';
+import {useEffect, useState }from 'react';
+import axios from 'axios';
 import dayjs from 'dayjs';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -8,6 +9,8 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+import { useNavigate } from 'react-router-dom';
+import AuthContext, { useAuth } from '../../context/AuthProvider';
 import StartStep from './SecondStep';
 import ZeroStep from './StartStep';
 import StandardTransaction from '../StandardTransaction';
@@ -45,6 +48,10 @@ const subcategories = [
 ];
 
 export default function TransactionStep() {
+  
+  const { auth } = useAuth();
+  const navigate = useNavigate();
+
   const [activeStep, setActiveStep] = useState(0);
   const [template, setTemplate] = useState([]);
   const [content, setContent] = useState({
@@ -57,6 +64,9 @@ export default function TransactionStep() {
   const [persistentContent, setPersistentContent] = useState(null);
   const [contMeta, setContMeta] = useState({id: '',name:''});
   const [contMetaSub, setContMetaSub] = useState({id:'',name:''});
+
+  const liveUrl = process.env.REACT_APP_BACKEND_URL;
+  const userId = auth.id;
 
   useEffect(()=>{
     let catName = [];
@@ -123,8 +133,22 @@ export default function TransactionStep() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSubmit = () =>{
-    console.log('SENT-PAYLOAD',persistentContent);
+  const handleSubmit = () => {
+    console.log('SENT-PAYLOAD', persistentContent);
+    const payload = { ...persistentContent, user_id:userId };
+    axios.post(`${liveUrl}/transactions/save`, payload).then(
+      (e) => {
+        console.log('Saved successfully!');
+        navigate('/dashboard/scan');
+        // setFetching(false);
+      }
+    ).catch((error) => {
+      if (error.response && error.response.status === 400) {
+        console.log(error);
+        // setError(error);
+        // handleOpenErrorModal();
+      }
+    });
   }
 
   return (
