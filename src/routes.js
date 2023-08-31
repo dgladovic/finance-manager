@@ -14,6 +14,7 @@ import ScanPageNew from './pages/ScanPageNew';
 import ScanPage from './pages/ScanPage';
 import ReceiptsList from './pages/Receipt Lists';
 import AddTransactionPage from './pages/AddTransactionPage';
+import TransactionsList from './pages/TransactionsList';
 
 // ----------------------------------------------------------------------
 
@@ -32,6 +33,7 @@ export default function Router() {
         { path: 'scan', element: <ScanPageNew/>},
         { path: 'scanpage', element: <ScanPage/>},
         { path: 'addtransaction', element: <AddTransactionPage/>},
+        { path: 'transactions', element: <TransactionsList/>},
       ],
     },
     {
