@@ -4,6 +4,7 @@ import { FormControl, FormControlLabel, Checkbox, RadioGroup, Select, MenuItem, 
 import Avatar from '@mui/material/Avatar';
 import {CalendarMonthRounded, PlusOne }from '@mui/icons-material';
 import categories from '../_mock/categories';
+import subcategories from '../_mock/subcategories';
 import Icon from './color-utils/Icon';
 import Iconify from './iconify/Iconify';
 
@@ -17,18 +18,23 @@ const StandardTransaction = ({ template, content, contMeta, contMetaSub}) => {
     const [selectedTemplate, setSelectedTemplate] = useState('');
     const [abba, setAbba] = useState('');
 
-    const [categoryMeta, setCategoryMeta] = useState({id: "100",name: "Hrana",color: "#f44336",iconName: "material-symbols:restaurant"});
-    const [subcategoryMeta, setSubCategoryMeta] = useState('');
+    const [categoryMeta, setCategoryMeta] = useState({id: "",name: "",color: "#f44336",iconName: "material-symbols:restaurant"});
+    const [subcategoryMeta, setSubCategoryMeta] = useState({id: "",name: "",parent_id:""});
 
 
     useEffect(()=>{
-        console.log(content,'TEST!-reaw');
         const displayCategory = categories.find((cat) => cat.id === content.category);
         if(displayCategory){
             setCategoryMeta(()=>displayCategory);
         }
-        console.log(displayCategory,'TEST!-stv')
     },[content.category])
+
+    useEffect(()=>{
+        const displaySubCategory = subcategories.find((cat) => cat.id === content.subcategory);
+        if(displaySubCategory){
+            setSubCategoryMeta(()=>displaySubCategory);
+        }
+    },[content.subcategory])
 
     return (<>
 
@@ -47,7 +53,7 @@ const StandardTransaction = ({ template, content, contMeta, contMetaSub}) => {
                 }
                 subheader={
                     <div style={{display:'flex', justifyContent:'flex-end'}}>
-                        <span style={{color: fontColor}}>{categoryMeta.name ?? '---'}</span>
+                        <span style={{color: fontColor}}>{subcategoryMeta.name ?? '---'}</span>
                     </div>
                 }
                 sx={{padding: 3}}
