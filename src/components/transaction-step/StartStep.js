@@ -23,16 +23,16 @@ const ZeroStep = ({ templates, setTemplateContext }) => {
 
     return (<>
         <div style={{display:'flex', justifyContent:'space-around', alignItems:'center', marginTop:'20px'}}>
-            <Typography>Is this a recurring transaction?</Typography>
-            <FormControl>
+            <Typography>Get ready to add a transaction!</Typography>
+            {/* <FormControl>
             <Checkbox
                 checked={isRecurring}
                 onChange={(e) => setIsRecurring(e.target.checked)}
                 color="primary"
             />
-        </FormControl>
+        </FormControl> */}
         </div>
-        {isRecurring && (
+        {/* {isRecurring && (
             <FormControl fullWidth variant="outlined" margin="normal">
                 <Select
                     value={selectedTemplate}
@@ -52,9 +52,7 @@ const ZeroStep = ({ templates, setTemplateContext }) => {
                     ))}
                 </Select>
             </FormControl>
-        )}
-
-
+        )} */}
     </>
     );
 };

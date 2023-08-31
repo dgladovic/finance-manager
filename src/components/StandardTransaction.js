@@ -48,7 +48,7 @@ const StandardTransaction = ({ template, content, contMeta, contMetaSub}) => {
                     </div>
                     <div style={{ justifyContent:'space-between', display:'flex'}}>
                         <span style={{ textAlign:'end'}}>Label:</span>
-                        <span style={{ textAlign:'end'}}>Vremenska (m)</span>
+                        <span style={{ textAlign:'end'}}>---</span>
                     </div>
                     <div style={{ justifyContent:'space-between', marginTop:'14px', display:'flex'}}>
                         <span style={{ textAlign:'end', fontWeight:'bold'}}>Amount:</span>
