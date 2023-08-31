@@ -79,9 +79,9 @@ export default function TransactionsList() {
 
       </Container>
 
-      <List style={{ width:'97%', display: 'flex', flexDirection: 'column', overflowX: 'auto', alignItems:'center' }}>
+      <List style={{ width:'100%', display: 'flex', flexDirection: 'column', overflowX: 'auto', alignItems:'center' }}>
         {transactionsList.map((e, i) => (
-          <ListItem key={i} style={{padding:'4px', width:'90%'}}>
+          <ListItem key={i} style={{padding:'4px', width:'90%', maxWidth:'800px'}}>
             <StandardTransaction content={e} contMeta={contMeta} contMetaSub={contMetaSub} />
           </ListItem>
         ))}
