@@ -67,7 +67,7 @@ function TransactionTable({ transactions }) {
                                 />
                             </TableCell>
                         )}
-                        <TableCell>Date</TableCell>
+                        <TableCell sx={{ width: 40, paddingLeft: 2 }}>Date</TableCell>
                         <TableCell sx={{ width: 40, padding: 0 }}>Category</TableCell>
                         <TableCell style={{ whiteSpace: 'normal' }}>Label</TableCell>
                         <TableCell sx={{ padding: 1 }}>Amount</TableCell>
