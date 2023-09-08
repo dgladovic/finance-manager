@@ -7,6 +7,8 @@ import axios from 'axios';
 import StandardTransaction from '../components/StandardTransaction';
 import AuthContext, { AuthProvider, useAuth } from '../context/AuthProvider';
 import Receipt from '../components/receipt/receipt';
+import StandardTransactionList from '../components/StandardTransactionList';
+import TransactionTable from '../components/StandardTransactionListTable';
 // mock
 
 // ----------------------------------------------------------------------
@@ -79,13 +81,15 @@ export default function TransactionsList() {
 
       </Container>
 
-      <List style={{ width:'100%', display: 'flex', flexDirection: 'column', overflowX: 'auto', alignItems:'center' }}>
+      <TransactionTable transactions={transactionsList} style={{width: '100%', overflow:'hidden'}}/>
+
+      {/* <List style={{ width:'100%', display: 'flex', flexDirection: 'column', overflowX: 'auto', alignItems:'center' }}>
         {transactionsList.map((e, i) => (
-          <ListItem key={i} style={{padding:'4px', width:'90%', maxWidth:'800px'}}>
-            <StandardTransaction content={e} contMeta={contMeta} contMetaSub={contMetaSub} />
+          <ListItem key={i} style={{ maxWidth:'800px'}}>
+            <StandardTransactionList content={e} contMeta={contMeta} contMetaSub={contMetaSub} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
 
 
 
