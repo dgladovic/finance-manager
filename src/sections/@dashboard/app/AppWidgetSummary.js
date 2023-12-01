@@ -22,13 +22,13 @@ const StyledIcon = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-AppWidgetSummary.propTypes = {
-  color: PropTypes.string,
-  icon: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
-  sx: PropTypes.object,
-};
+// AppWidgetSummary.propTypes = {
+//   color: PropTypes.string,
+//   icon: PropTypes.string,
+//   title: PropTypes.string.isRequired,
+//   total: PropTypes.number.isRequired,
+//   sx: PropTypes.object,
+// };
 
 export default function AppWidgetSummary({ title, total, icon, color = 'primary', sx, ...other }) {
   return (
