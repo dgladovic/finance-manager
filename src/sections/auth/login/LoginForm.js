@@ -5,10 +5,13 @@ import { Link, Button, Stack, IconButton, InputAdornment, TextField, Checkbox, D
 import { LoadingButton } from '@mui/lab';
 // components
 import axios from 'axios';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithCustomToken } from 'firebase/auth';
 import ErrorDialog from '../../../components/ErrorDialog';
 import CircularIndeterminate from '../../../components/CircularIndeterminate';
 import AuthContext, { AuthProvider } from '../../../context/AuthProvider';
 import Iconify from '../../../components/iconify';
+
 
 // ----------------------------------------------------------------------
 
@@ -33,6 +36,18 @@ export default function LoginForm() {
       }
     }
   }
+
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD9bek1-P9-k3xnznASSHtLXB0S21eqKxQ",
+    authDomain: "finance-manager-8ddf5.firebaseapp.com",
+    projectId: "finance-manager-8ddf5",
+    storageBucket: "finance-manager-8ddf5.appspot.com",
+    messagingSenderId: "720830389654",
+    appId: "1:720830389654:web:79cc019275ea00a04191b7",
+    measurementId: "G-ZKCG7EZLM5"
+  };
+  const app = initializeApp(firebaseConfig);
 
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMsg, setError] = useState(TEST);
@@ -77,12 +92,16 @@ export default function LoginForm() {
         email: user,
         password: pwd
       });
-      console.log(JSON.stringify(response?.data));
-      setAuth({ user, pwd, id: response?.data.id })
-      setUser('');
-      setPwd('');
-      setSuccess(true);
-      navigate('/dashboard', { replace: true });
+      console.log(JSON.stringify(response?.data),'TEST');
+      const auth = getAuth();
+      signInWithCustomToken(auth, response.data.token)
+        .then(()=>{
+          setAuth({ user, pwd, id: response?.data.id })
+          setUser('');
+          setPwd('');
+          setSuccess(true);
+          navigate('/dashboard', { replace: true });
+        });
     }
     catch (err) {
       console.log('greska', err);
