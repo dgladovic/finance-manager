@@ -26,13 +26,15 @@ const Receipt = ({amo}) =>{
                 receipt && receipt.items.map((e,i) =>(<>
                         <ListItem key={i} style={{display: 'flex',justifyContent: 'space-between', marginBottom: '6px', width:'100%'}}>
                             <span style={{display: 'block'}}>{e.name}</span> 
-                            <span style={{display: 'block', width:'110px', textAlign:'end'}}>{e.total}<span style={{marginLeft:'3px'}}>RSD</span></span>
+                            <span style={{display: 'block', width:'110px', textAlign:'end'}}>{e.total}
+                                <span style={{marginLeft:'3px'}}>RSD</span>
+                            </span>
                         </ListItem>
                         </>
                 ))
             }
             </List>
-            <DotDivider amount={24}/>
+            <DotDivider amount={28}/>
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',

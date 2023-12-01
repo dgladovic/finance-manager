@@ -4,12 +4,6 @@ import { Box, Card, Typography  } from '@mui/material';
 import ReactApexChart from 'react-apexcharts';
 import CurrentSavingsWidget from './CurrentSavingsWidget';
 
-
-CurrentSavingsWidget.propTypes = {
-  total: PropTypes.number.isRequired,
-  sx: PropTypes.object,
-};
-
 export default function ExpenseStructureWidget({ total, sx, color = 'primary', ...other }) {
   const chartOptions = {
     labels: ['Investments', 'Savings', 'Others'],
